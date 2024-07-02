@@ -1,63 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="cart.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="shop.css" />
     <script
       src="https://kit.fontawesome.com/d6ae4d7428.js"
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous"
+    ></script>
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet" />
-
-</head>
-<body class="">
-
+      rel="stylesheet"
+    />
+  </head>
+  <body class="">
     <div class="main">
-
-    <section class="header">
+      <section class="header">
         <div class="landing">
           <p>Landing Page.</p>
           <a href="index.html">Home</a>
-          <a href="shop.html" >Shop</a>
+          <a href="shop.html">Shop</a>
           <a href="supplier.html">Become a supplier</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
-          <a href="cart.html" class="active"><i class="fa-solid fa-bag-shopping"></i></a>
+          <a href="cart.html" class="active"
+            ><i class="fa-solid fa-bag-shopping"></i
+          ></a>
           <a href="sell.html"><i class="fa-solid fa-truck-fast"></i></a>
         </div>
       </section>
-    
-    <div class="container">
+
+      <div class="container">
         <header>
-            <h1>Your Shopping Cart</h1>
-            <!-- <div class="shopping">
-                <img src="image/shopping.svg">
-                <span class="quantity">0</span>
-            </div> -->
+          <h1>Your Shopping Cart</h1>
         </header>
 
-        <div class="list">
-          
-        </div>
-    </div>
-    <div class="card">
+        <div class="list"></div>
+        <div id="cart-items"></div>
+      </div>
+      <div class="card">
         <h1>Card</h1>
-        <ul class="listCard">
-        </ul>
+        <ul class="listCard"></ul>
         <div class="checkOut">
-            <div class="total">0</div>
-            <div class="closeShopping">Close</div>
+          <div class="total">0</div>
+          <div class="closeShopping">Close</div>
         </div>
+      </div>
+
+      <script>
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        function renderCartItems(cart) {
+          const cartContainer = document.getElementById("cart-items");
+          if (cart.length === 0) {
+            cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+            return;
+          }
+          const itemsHtml = cart
+            .map((product) => {
+              return `
+      <div class="cart-item">
+        <img src="${product.imageSrc}" alt="${product.title}" style="width: 100px; height: auto;">
+        <div>
+          <h3>${product.title}</h3>
+          <p>${product.price}</p>
+        </div>
+      </div>
+    `;
+            })
+            .join("");
+          cartContainer.innerHTML = itemsHtml;
+        }
+
+        renderCartItems(cart);
+      </script>
     </div>
-
-    <script src="cart.js"></script>
-
-</div>
-</body>
+  </body>
 </html>

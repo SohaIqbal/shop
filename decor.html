@@ -21,6 +21,22 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 
+<style>
+    .add-to-cart {
+    background-color: #4CAF50; 
+    color: white; 
+    padding: 10px 24px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+
+.add-to-cart:hover {
+    background-color: #45a049;
+}
+</style>
+
 <body>
     <div class="main .pro">
         <section class="header">
@@ -928,6 +944,42 @@
                 preveiwContainer.style.display = "none";
             };
         });
+
+        const products = [
+    { id: 1, name: "p-1", imageSrc: "Categories/Decor/Decorative pots/d1.jpg", title: "Imperial Elegance Pot", price: "$250.00" },
+    { id: 2, name: "p-2", imageSrc: "Categories/Decor/Decorative pots/d5.jpg", title: "Crystal Bloom Vase", price: "$320.00" },
+    { id: 3, name: "p-3", imageSrc: "Categories/Decor/Decorative pots/d4.jpg", title: "Opulent Marble Pot", price: "$280.00" },
+    { id: 4, name: "p-4", imageSrc: "Categories/Decor/Decorative pots/d9.jpg", title: "Gilded Grace Urn", price: "$295.00" },
+    { id: 5, name: "p-5", imageSrc: "Categories/Decor/Decorative pots/d6.jpg", title: "Royal Heritage Planter", price: "$310.00" },
+    { id: 6, name: "p-6", imageSrc: "Categories/Decor/Decorative pots/d7.jpg", title: "Antique Bronze Pot", price: "$350.00" },
+    { id: 7, name: "p-7", imageSrc: "Categories/Decor/Decorative pots/d3.jpg", title: "Sapphire Enchantment Vase", price: "$335.00" },
+    { id: 8, name: "p-8", imageSrc: "Categories/Decor/Decorative pots/d2.jpg", title: "Renaissance Revival Pot", price: "$375.00" },
+    { id: 9, name: "p-9", imageSrc: "Categories/Decor/Decorative pots/d8.jpg", title: "Pearl Essence Planter", price: "$380.00", height: "780px", width: "500px" }
+];
+
+        const productsContainer = document.querySelector('.products-container');
+
+const productsHTML = products.map(product => {
+    return `
+        <div class="product" data-name="${product.name}">
+            <img src="${product.imageSrc}" alt="" />
+            <h3>${product.title}</h3>
+            <div class="price">${product.price}</div>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+    `;
+}).join('');
+        productsContainer.innerHTML = productsHTML;
+        document.querySelectorAll('.add-to-cart').forEach((button, index) => {
+            button.addEventListener('click', function() {
+    const product = products[index]; 
+    let cart = JSON.parse(localStorage.getItem('cart')) || []; 
+    cart.push(product); 
+    localStorage.setItem('cart', JSON.stringify(cart)); 
+    console.log(`Added to cart: ${product.title}`);
+    this.textContent = "Added"; 
+});
+});
     </script>
 </body>
 
